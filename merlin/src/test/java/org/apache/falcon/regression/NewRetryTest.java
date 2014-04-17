@@ -28,6 +28,7 @@ import org.apache.falcon.regression.core.helpers.ColoHelper;
 import org.apache.falcon.regression.core.response.ProcessInstancesResult;
 import org.apache.falcon.regression.core.response.ServiceResponse;
 import org.apache.falcon.regression.core.enumsAndConstants.ENTITY_TYPE;
+import org.apache.falcon.regression.core.supportClasses.Consumer;
 import org.apache.falcon.regression.core.util.HadoopUtil;
 import org.apache.falcon.regression.core.util.InstanceUtil;
 import org.apache.falcon.regression.core.util.OSUtil;
@@ -121,7 +122,7 @@ public class NewRetryTest extends BaseTestClass {
             Util.assertSucceeded(response);
             // lets create data now:
             HadoopUtil.deleteDirIfExists(lateDir, clusterFS);
-            Util.lateDataReplenish(cluster, 20, 0, lateDir);
+            Util.lateDataReplenish(cluster, 3, 0, lateDir);
             List<String> initialData = Util.getHadoopDataFromDir(cluster, Util.getInputFeedFromBundle(bundles[0]), lateDir);
 
             //schedule process
@@ -165,7 +166,10 @@ public class NewRetryTest extends BaseTestClass {
         bundles[0].getDataSets().remove(Util.getInputFeedFromBundle(bundles[0]));
         bundles[0].getDataSets().add(feed);
         bundles[0].submitClusters(prism);
-
+        final String inputDataSetName = Util.readEntityName(feed);
+        Consumer consumer = new Consumer("FALCON." + bundles[0].getProcessName(),
+                cluster.getClusterHelper().getActiveMQ());
+        consumer.start();
         for (String data : bundles[0].getDataSets()) {
             Util.assertSucceeded(prism.getFeedHelper().submitEntity(URLS.SUBMIT_URL, data));
         }
@@ -179,7 +183,7 @@ public class NewRetryTest extends BaseTestClass {
         } else {
             Util.assertSucceeded(response);
             HadoopUtil.deleteDirIfExists(lateDir, clusterFS);
-            Util.lateDataReplenish(cluster, 20, 0, lateDir);
+            Util.lateDataReplenish(cluster, 3, 0, lateDir);
             List<String> initialData = Util.getHadoopDataFromDir(cluster, Util.getInputFeedFromBundle(bundles[0]), lateDir);
             //now wait till the process is over
             Util.assertSucceeded(prism.getProcessHelper().schedule(URLS.SCHEDULE_URL, bundles[0].getProcessData()));
@@ -215,6 +219,16 @@ public class NewRetryTest extends BaseTestClass {
                     checkIfRetriesWereTriggeredCorrectly(cluster, retryType, delay, bundleId);
                 }
             }
+            checkIfRetriesWereTriggeredCorrectly(cluster, retryType, delay, bundleId);
+            consumer.interrupt();
+            for (HashMap<String, String> data : consumer.getMessageData()) {
+                logger.info("*************************************");
+                for (String key : data.keySet()) {
+                    logger.info(key + "=" + data.get(key));
+                }
+                logger.info("*************************************");
+            }
+            logger.info(consumer.getMessageData());
         }
     }
 
@@ -1062,10 +1076,10 @@ public class NewRetryTest extends BaseTestClass {
     @DataProvider(name = "DP")
     public Object[][] getData() throws Exception {
 
-        String[] retryTypes = new String[]{"periodic", "exp-backoff"};//,"exp-backoff"
-        int[] delays = new int[]{2, 0};//removing -1 since this should be checked at validation level while setting
+        String[] retryTypes = new String[]{"periodic"};//,"exp-backoff"
+        int[] delays = new int[]{2};//removing -1 since this should be checked at validation level while setting
         String[] delayUnits = new String[]{"minutes"};
-        Integer[] retryAttempts = new Integer[]{2, 0, 3};//0,-1,2
+        Integer[] retryAttempts = new Integer[]{2};//0,-1,2
 
         Object[][] testData = new Object[retryTypes.length * delays.length * delayUnits.length * retryAttempts.length][4];
 
@@ -1166,7 +1180,7 @@ public class NewRetryTest extends BaseTestClass {
 
         for (CoordinatorAction action : coordinator.getActions()) {
             CoordinatorAction coordAction = oozieClient.getCoordActionInfo(action.getExternalId());
-            if (!coordAction.getStatus().equals(CoordinatorAction.Status.SUCCEEDED)) {
+            if (true) {
                 int expectedDelay = delay;
                 //first get data from logs:
                 List<String> instanceRetryTimes = Util.getInstanceRetryTimes(coloHelper, action.getExternalId());

@@ -1253,7 +1253,7 @@ public class Util {
     List<String> raw = runRemoteScript(coloHelper.getProcessHelper()
             .getQaHost(), coloHelper.getProcessHelper().getUsername(),
             coloHelper.getProcessHelper().getPassword(),
-            "cat /var/log/ivory/application.* | grep \"" + workflowId + "\" | grep " +
+            "cat /grid/0/var/log/falcon/falcon.application.* | grep \"" + workflowId + "\" | grep " +
                     "\"Received\" | awk '{print $2}'",
             coloHelper.getProcessHelper().getIdentityFile());
     List<String> finalList = new ArrayList<String>();
@@ -1269,7 +1269,7 @@ public class Util {
     List<String> raw = runRemoteScript(coloHelper.getProcessHelper()
       .getQaHost(), coloHelper.getProcessHelper().getUsername(),
       coloHelper.getProcessHelper().getPassword(),
-      "cat /var/log/ivory/application.* | grep \"" + workflowId + "\" | grep " +
+      "cat /grid/0/var/log/falcon/falcon.application.* | grep \"" + workflowId + "\" | grep " +
         "\"Retrying attempt\" | awk '{print $2}'",
       coloHelper.getProcessHelper().getIdentityFile());
     List<String> finalList = new ArrayList<String>();

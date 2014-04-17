@@ -24,6 +24,8 @@ package org.apache.falcon.regression.core.supportClasses;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -33,7 +35,11 @@ import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -103,6 +109,7 @@ public class Consumer extends Thread {
         // Here we receive the message.
         // By default this call is blocking, which means it will wait
         // for a message to arrive on the queue.
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         try {
 
@@ -117,15 +124,17 @@ public class Consumer extends Thread {
                     //logger.info("Received message..parsing now... '");
                     //TextMessage textMessage=(TextMessage)m;
                     MapMessage message = (MapMessage) m;
-                    //logger.debug("Message:"+textMessage.getText());
-                    Enumeration mapNames = message.getMapNames();
+                    DateTime time = new DateTime(DateTimeZone.UTC);                    Enumeration mapNames = message.getMapNames();
+
                     HashMap<String, String> temp = new HashMap<String, String>();
                     while (mapNames.hasMoreElements()) {
 
                         String objectName = mapNames.nextElement().toString();
                         temp.put(objectName, message.getString(objectName));
 
+
                     }
+                    temp.put("messageTime", time.toString());
                     messageData.add(temp);
                     //textMessageList.add(textMessage.getText());
 
