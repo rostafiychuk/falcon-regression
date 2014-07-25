@@ -150,7 +150,7 @@ public class ProcessMerlin extends Process {
         for (Cluster cluster : getClusters().getClusters()) {
             final String oldName = cluster.getName();
             final String newName = clusterNameMap.get(oldName);
-            if (!StringUtils.isEmpty(newName)) {
+            if (StringUtils.isNotEmpty(newName)) {
                 cluster.setName(newName);
             }
         }
@@ -160,14 +160,14 @@ public class ProcessMerlin extends Process {
         for(Input input : getInputs().getInputs()) {
             final String oldName = input.getFeed();
             final String newName = feedNameMap.get(oldName);
-            if (!StringUtils.isEmpty(newName)) {
+            if (StringUtils.isNotEmpty(newName)) {
                 input.setFeed(newName);
             }
         }
         for(Output output : getOutputs().getOutputs()) {
             final String oldName = output.getFeed();
             final String newName = feedNameMap.get(oldName);
-            if (!StringUtils.isEmpty(newName)) {
+            if (StringUtils.isNotEmpty(newName)) {
                 output.setFeed(newName);
             }
         }

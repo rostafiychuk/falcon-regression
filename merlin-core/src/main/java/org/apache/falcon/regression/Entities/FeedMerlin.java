@@ -167,7 +167,7 @@ public class FeedMerlin extends Feed {
         for (Cluster cluster : getClusters().getClusters()) {
             final String oldName = cluster.getName();
             final String newName = clusterNameMap.get(oldName);
-            if(!StringUtils.isEmpty(newName)) {
+            if(StringUtils.isNotEmpty(newName)) {
                 cluster.setName(newName);
             }
         }
