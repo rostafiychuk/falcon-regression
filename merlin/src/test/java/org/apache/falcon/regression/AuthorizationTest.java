@@ -69,7 +69,7 @@ public class AuthorizationTest extends BaseTestClass {
     private OozieClient clusterOC = serverOC.get(0);
     private String baseTestDir = baseHDFSDir + "/AuthorizationTest";
     private String aggregateWorkflowDir = baseTestDir + "/aggregator";
-    private String datePattern = "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+    private String datePattern = "" + datePattern;
     private String feedInputPath = baseTestDir + "/input" + datePattern;
 
     @BeforeClass(alwaysRun = true)
@@ -538,7 +538,7 @@ public class AuthorizationTest extends BaseTestClass {
             "Feed should be already submitted");
         //update feed definition
         String newFeed = Util.setFeedPathValue(feed,
-            baseHDFSDir + "/randomPath/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}/");
+            baseHDFSDir + "/randomPath" + datePattern);
         //try to update feed by U2
         KerberosHelper.loginFromKeytab(MerlinConstants.USER2_NAME);
         final ServiceResponse serviceResponse = prism.getFeedHelper().update(feed, newFeed,
@@ -560,7 +560,7 @@ public class AuthorizationTest extends BaseTestClass {
         AssertUtil.checkStatus(clusterOC, EntityType.FEED, feed, Job.Status.RUNNING);
         //update feed definition
         String newFeed = Util.setFeedPathValue(feed,
-            baseHDFSDir + "/randomPath/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}/");
+            baseHDFSDir + "/randomPath" + datePattern);
         //try to update feed by U2
         KerberosHelper.loginFromKeytab(MerlinConstants.USER2_NAME);
         final ServiceResponse serviceResponse = prism.getFeedHelper().update(feed, newFeed,
@@ -651,7 +651,7 @@ public class AuthorizationTest extends BaseTestClass {
 
         //update feed definition
         String newFeed = Util.setFeedPathValue(feed,
-            baseHDFSDir + "/randomPath/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}/");
+            baseHDFSDir + "/randomPath" + datePattern);
 
         //update feed by U1
         KerberosHelper.loginFromKeytab(MerlinConstants.CURRENT_USER_NAME);

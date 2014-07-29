@@ -71,7 +71,6 @@ public class PrismFeedReplicationPartitionExpTest extends BaseTestClass {
     private String testDirWithDate = testBaseDir1 + testDate;
     private String testDirWithDate_sourcetarget = testBaseDir4 + testDate;
     private String testDirWithDate_source1 = testBaseDir_server1source + testDate;
-    private String dateTemplate = "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
     private String testFile1 = OSUtil.RESOURCES
         + OSUtil.getPath("ReplicationResources", "feed-s4Replication.xml");
     private String testFile2 = OSUtil.RESOURCES + OSUtil.getPath("ReplicationResources", "id.pig");

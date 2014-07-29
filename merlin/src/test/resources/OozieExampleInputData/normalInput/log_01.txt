@@ -82,7 +82,7 @@ public class PrismFeedLateReplicationTest {
 			b3  = new Bundle(b3,ua3.getEnvFileName());
 
 
-			b1.setInputFeedDataPath("/samarthRetention/input-data/rawLogs/oozieExample/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}/");
+			b1.setInputFeedDataPath("/samarthRetention/input-data/rawLogs/oozieExample" + datePattern);
 
 			b1.setCLusterColo("ua1");
 			Util.print("cluster b1: "+b1.getClusters().get(0));

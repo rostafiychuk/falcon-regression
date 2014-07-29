@@ -94,10 +94,10 @@ public class FeedRetentionTest extends BaseTestClass {
      */
     @Test(enabled = true)
     public void testRetentionClickRC_2Colo() throws Exception {
-        String inputPath = baseHDFSDir + "/testInput/";
-        String inputData = inputPath + "${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+        String inputPath = baseHDFSDir + "/testInput";
+        String inputData = inputPath + dateTemplate;
         String outputPathTemplate = baseHDFSDir +
-            "/testOutput/op%d/ivoryRetention0%d/%s/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+            "/testOutput/op%d/ivoryRetention0%d/%s" + dateTemplate;
 
         List<String> dataDates = TimeUtil.getMinuteDatesOnEitherSide(
             TimeUtil.getTimeWrtSystemTime(-5), TimeUtil.getTimeWrtSystemTime(10), 1);

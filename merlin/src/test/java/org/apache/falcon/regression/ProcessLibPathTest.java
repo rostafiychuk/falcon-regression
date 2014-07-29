@@ -64,7 +64,7 @@ public class ProcessLibPathTest extends BaseTestClass {
         String startDate = "2010-01-01T22:00Z";
         String endDate = "2010-01-02T03:00Z";
 
-        b.setInputFeedDataPath(baseHDFSDir + "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}");
+        b.setInputFeedDataPath(baseHDFSDir + dateTemplate);
         String prefix = b.getFeedDataPathPrefix();
         HadoopUtil.deleteDirIfExists(prefix.substring(1), clusterFS);
 
@@ -80,12 +80,11 @@ public class ProcessLibPathTest extends BaseTestClass {
         bundles[0] = BundleUtil.readELBundle();
         bundles[0] = new Bundle(bundles[0], cluster);
         bundles[0].generateUniqueBundle();
-        bundles[0].setInputFeedDataPath(baseHDFSDir + "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}");
+        bundles[0].setInputFeedDataPath(baseHDFSDir + dateTemplate);
         bundles[0].setProcessValidity("2010-01-02T01:00Z", "2010-01-02T01:04Z");
         bundles[0].setProcessPeriodicity(5, TimeUnit.minutes);
         bundles[0].setOutputFeedPeriodicity(5, TimeUnit.minutes);
-        bundles[0].setOutputFeedLocationData(
-            baseHDFSDir + "/output-data/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}");
+        bundles[0].setOutputFeedLocationData(baseHDFSDir + "/output-data" + dateTemplate);
         bundles[0].setProcessConcurrency(1);
         bundles[0].setProcessLibPath(testLibDir);
     }

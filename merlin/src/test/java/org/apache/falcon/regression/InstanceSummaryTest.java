@@ -64,8 +64,7 @@ public class InstanceSummaryTest extends BaseTestClass {
 
 
     String baseTestHDFSDir = baseHDFSDir + "/InstanceSummaryTest";
-    String feedInputPath = baseTestHDFSDir +
-        "/testInputData/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+    String feedInputPath = baseTestHDFSDir + "/testInputData" + dateTemplate;
     String aggregateWorkflowDir = baseTestHDFSDir + "/aggregator";
     String startTime;
     String endTime;

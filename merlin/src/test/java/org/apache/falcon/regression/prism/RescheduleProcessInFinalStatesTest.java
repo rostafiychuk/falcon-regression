@@ -55,7 +55,7 @@ public class RescheduleProcessInFinalStatesTest extends BaseTestClass {
     FileSystem clusterFS = serverFS.get(0);
     String baseTestDir = baseHDFSDir + "/RescheduleProcessInFinalStates";
     String aggregateWorkflowDir = baseTestDir + "/aggregator";
-    String inputPath = baseTestDir + "/input/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+    String inputPath = baseTestDir + "/input" + dateTemplate;
     private static final Logger logger = Logger.getLogger(RescheduleProcessInFinalStatesTest.class);
 
     @BeforeClass(alwaysRun = true)
@@ -91,8 +91,7 @@ public class RescheduleProcessInFinalStatesTest extends BaseTestClass {
         bundles[0].setProcessValidity("2010-01-02T01:00Z", "2010-01-02T01:15Z");
         bundles[0].setProcessPeriodicity(5, TimeUnit.minutes);
         bundles[0].setOutputFeedPeriodicity(5, TimeUnit.minutes);
-        bundles[0].setOutputFeedLocationData(
-            baseTestDir + "/output-data/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}");
+        bundles[0].setOutputFeedLocationData(baseTestDir + "/output-data" + dateTemplate);
         bundles[0].setProcessConcurrency(6);
         bundles[0].setProcessWorkflow(aggregateWorkflowDir);
         bundles[0].submitFeedsScheduleProcess(prism);

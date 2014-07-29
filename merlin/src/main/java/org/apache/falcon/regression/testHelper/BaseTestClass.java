@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseTestClass {
+    protected String dateTemplate = "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
     private static String[] serverNames;
     private static final Logger logger = Logger.getLogger(BaseTestClass.class);
 

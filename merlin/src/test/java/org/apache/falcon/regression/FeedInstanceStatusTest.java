@@ -52,7 +52,7 @@ import java.lang.reflect.Method;
 public class FeedInstanceStatusTest extends BaseTestClass {
 
     private String baseTestDir = baseHDFSDir + "/FeedInstanceStatusTest";
-    private String feedInputPath = baseTestDir + "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}/";
+    private String feedInputPath = baseTestDir + dateTemplate;
     private String aggregateWorkflowDir = baseTestDir + "/aggregator";
 
     ColoHelper cluster2 = servers.get(1);

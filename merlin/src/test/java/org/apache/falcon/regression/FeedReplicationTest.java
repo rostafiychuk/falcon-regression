@@ -70,7 +70,6 @@ public class FeedReplicationTest extends BaseTestClass {
     private FileSystem cluster3FS = serverFS.get(2);
     private OozieClient cluster2OC = serverOC.get(1);
     private OozieClient cluster3OC = serverOC.get(2);
-    private String dateTemplate = "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
     private String baseTestDir = baseHDFSDir + "/FeedReplicationTest";
     private String sourcePath = baseTestDir + "/source";
     private String feedDataLocation = baseTestDir + "/source" + dateTemplate;

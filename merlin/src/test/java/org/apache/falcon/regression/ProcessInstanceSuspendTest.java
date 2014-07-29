@@ -55,10 +55,8 @@ import java.util.List;
 public class ProcessInstanceSuspendTest extends BaseTestClass {
 
     private String baseTestHDFSDir = baseHDFSDir + "/ProcessInstanceSuspendTest";
-    private String feedInputPath = baseTestHDFSDir +
-        "/input/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
-    private String feedOutputPath =
-        baseTestHDFSDir + "/output-data/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+    private String feedInputPath = baseTestHDFSDir + "/input" + dateTemplate;
+    private String feedOutputPath = baseTestHDFSDir + "/output-data" + dateTemplate;
     private String aggregateWorkflowDir = baseTestHDFSDir + "/aggregator";
     private ColoHelper cluster = servers.get(0);
     private FileSystem clusterFS = serverFS.get(0);

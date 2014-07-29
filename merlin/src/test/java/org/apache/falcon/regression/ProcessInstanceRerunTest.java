@@ -53,10 +53,9 @@ public class ProcessInstanceRerunTest extends BaseTestClass {
 
     private String baseTestDir = baseHDFSDir + "/ProcessInstanceRerunTest";
     private String aggregateWorkflowDir = baseTestDir + "/aggregator";
-    private String feedInputPath = baseTestDir + "/input/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
-    private String feedOutputPath = baseTestDir + "/output-data/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
-    private String feedInputTimedOutPath =
-        baseTestDir + "/timedout/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+    private String feedInputPath = baseTestDir + "/input" + dateTemplate;
+    private String feedOutputPath = baseTestDir + "/output-data" + dateTemplate;
+    private String feedInputTimedOutPath = baseTestDir + "/timedout" + dateTemplate;
 
     private ColoHelper cluster = servers.get(0);
     private FileSystem clusterFS = serverFS.get(0);

@@ -68,7 +68,6 @@ public class UpdateAtSpecificTimeTest extends BaseTestClass {
     ColoHelper cluster_3 = servers.get(2);
     FileSystem cluster2FS = serverFS.get(1);
 
-    private String dateTemplate = "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
     private final String baseTestDir = baseHDFSDir + "/UpdateAtSpecificTimeTest-data";
     String aggregateWorkflowDir = baseHDFSDir + "/aggregator";
 

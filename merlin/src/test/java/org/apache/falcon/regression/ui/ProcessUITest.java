@@ -68,7 +68,7 @@ public class ProcessUITest extends BaseUITestClass {
     private String baseTestDir = baseHDFSDir + "/TestProcessUI";
     private String aggregateWorkflowDir = baseTestDir + "/aggregator";
     private static final Logger logger = Logger.getLogger(ProcessUITest.class);
-    String datePattern = "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+    String datePattern = "" + datePattern;
     String feedInputPath = baseTestDir + "/input";
     final String feedOutputPath = baseTestDir + "/output";
     private FileSystem clusterFS = serverFS.get(0);

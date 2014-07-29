@@ -67,8 +67,7 @@ public class ELExp_FutureAndLatestTest extends BaseTestClass {
         String startDate = TimeUtil.getTimeWrtSystemTime(-150);
         String endDate = TimeUtil.getTimeWrtSystemTime(100);
 
-        b.setInputFeedDataPath(
-            baseTestDir + "/ELExp_latest/testData/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}");
+        b.setInputFeedDataPath(baseTestDir + "/ELExp_latest/testData" + dateTemplate);
         b.setProcessWorkflow(aggregateWorkflowDir);
         prefix = b.getFeedDataPathPrefix();
         HadoopUtil.deleteDirIfExists(prefix.substring(1), clusterFS);
@@ -84,8 +83,7 @@ public class ELExp_FutureAndLatestTest extends BaseTestClass {
         bundles[0] = BundleUtil.readELBundle();
         bundles[0] = new Bundle(bundles[0], cluster);
         bundles[0].generateUniqueBundle();
-        bundles[0].setInputFeedDataPath(
-            baseTestDir + "/ELExp_latest/testData/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}");
+        bundles[0].setInputFeedDataPath(baseTestDir + "/ELExp_latest/testData" + dateTemplate);
         bundles[0].setInputFeedPeriodicity(5, TimeUnit.minutes);
         bundles[0].setInputFeedValidity("2010-04-01T00:00Z", "2015-04-01T00:00Z");
         String processStart = TimeUtil.getTimeWrtSystemTime(-3);

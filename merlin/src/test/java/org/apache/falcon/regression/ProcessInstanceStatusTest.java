@@ -61,14 +61,11 @@ public class ProcessInstanceStatusTest extends BaseTestClass {
     private FileSystem clusterFS = serverFS.get(0);
     private String baseTestHDFSDir = baseHDFSDir + "/ProcessInstanceStatusTest";
     private String aggregateWorkflowDir = baseTestHDFSDir + "/aggregator";
-    private String feedInputPath =
-        baseTestHDFSDir + "/input/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
-    private String feedOutputPath =
-        baseTestHDFSDir + "/output-data/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
-    private String feedInputTimedOutPath =
-        baseTestHDFSDir + "/timedoutStatus/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+    private String feedInputPath = baseTestHDFSDir + "/input" + dateTemplate;
+    private String feedOutputPath = baseTestHDFSDir + "/output-data" + dateTemplate;
+    private String feedInputTimedOutPath = baseTestHDFSDir + "/timedoutStatus" + dateTemplate;
     private String feedOutputTimedOutPath =
-        baseTestHDFSDir + "/output-data/timedoutStatus/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+        baseTestHDFSDir + "/output-data/timedoutStatus" + dateTemplate;
     private static final Logger LOGGER = Logger.getLogger(ProcessInstanceStatusTest.class);
 
     @BeforeClass(alwaysRun = true)
@@ -382,11 +379,11 @@ public class ProcessInstanceStatusTest extends BaseTestClass {
         }
         bundles[0].submitFeedsScheduleProcess(prism);
         AssertUtil.checkStatus(serverOC.get(0), EntityType.PROCESS, bundles[0].getProcessData(),
-                Job.Status.RUNNING);
+            Job.Status.RUNNING);
         AssertUtil.assertSucceeded(
-                prism.getProcessHelper().suspend(URLS.SUSPEND_URL, bundles[0].getProcessData()));
+            prism.getProcessHelper().suspend(URLS.SUSPEND_URL, bundles[0].getProcessData()));
         AssertUtil.checkStatus(serverOC.get(0), EntityType.PROCESS, bundles[0].getProcessData(),
-                Job.Status.SUSPENDED);
+            Job.Status.SUSPENDED);
         TimeUtil.sleepSeconds(15);
         InstancesResult r = prism.getProcessHelper()
             .getProcessInstanceStatus(Util.readEntityName(bundles[0].getProcessData()),

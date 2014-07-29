@@ -54,7 +54,7 @@ import java.util.List;
 public class ProcessInstanceColoMixedTest extends BaseTestClass {
 
     private final String baseTestHDFSDir = baseHDFSDir + "/ProcessInstanceColoMixedTest";
-    private final String datePattern = "/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}/";
+    private final String datePattern = "" + datePattern;
     private final String feedPath = baseTestHDFSDir + "/feed0%d" + datePattern;
     private String aggregateWorkflowDir = baseTestHDFSDir + "/aggregator";
     private ColoHelper cluster1 = servers.get(0);

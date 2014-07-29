@@ -54,7 +54,7 @@ public class NoOutputProcessTest extends BaseTestClass {
     FileSystem clusterFS = serverFS.get(0);
     OozieClient clusterOC = serverOC.get(0);
     String testDir = baseHDFSDir + "/NoOutputProcessTest";
-    String inputPath = testDir + "/input/${YEAR}/${MONTH}/${DAY}/${HOUR}/${MINUTE}";
+    String inputPath = testDir + "/input" + dateTemplate;
     String aggregateWorkflowDir = testDir + "/aggregator";
     private static final Logger logger = Logger.getLogger(NoOutputProcessTest.class);
 
