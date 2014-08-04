@@ -260,31 +260,6 @@ public final class HadoopUtil {
         return locations;
     }
 
-    public static void createLateDataFoldersWithRandom(FileSystem fs, String folderPrefix,
-        List<String> folderList) throws IOException {
-        LOGGER.info("creating late data folders.....");
-        folderList.add(SOMETHING_RANDOM);
-
-        for (final String folder : folderList) {
-            fs.mkdirs(new Path(folderPrefix + folder));
-        }
-
-        LOGGER.info("created all late data folders.....");
-    }
-
-    public static void copyDataToFolders(FileSystem fs, List<String> folderList,
-        String directory, String folderPrefix) throws IOException {
-        LOGGER.info("copying data into folders....");
-        List<String> fileLocations = new ArrayList<String>();
-        File[] files = new File(directory).listFiles();
-        if (files != null) {
-            for (final File file : files) {
-                fileLocations.add(file.toString());
-            }
-        }
-        copyDataToFolders(fs, folderPrefix, folderList,
-                fileLocations.toArray(new String[fileLocations.size()]));
-    }
 
     public static void copyDataToFolders(FileSystem fs, final String folderPrefix,
         List<String> folderList, String... fileLocations) throws IOException {
@@ -321,9 +296,8 @@ public final class HadoopUtil {
     public static void lateDataReplenish(FileSystem fs, int interval,
         int minuteSkip, String folderPrefix) throws IOException {
         List<String> folderData = TimeUtil.getMinuteDatesOnEitherSide(interval, minuteSkip);
-
-        createLateDataFoldersWithRandom(fs, folderPrefix, folderData);
-        copyDataToFolders(fs, folderData, OSUtil.NORMAL_INPUT, folderPrefix);
+        folderData.add(SOMETHING_RANDOM);
+        flattenAndPutDataInFolder(fs, OSUtil.NORMAL_INPUT, folderPrefix, folderData);
     }
 
     public static void createLateDataFolders(FileSystem fs, final String folderPrefix,
