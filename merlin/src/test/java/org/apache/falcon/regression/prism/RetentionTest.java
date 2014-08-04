@@ -123,7 +123,12 @@ public class RetentionTest extends BaseTestClass {
         final List<String> dataDates = TimeUtil.convertDatesToString(times, feedType.getFormatter());
         logger.info("dataDates = " + dataDates);
 
-        HadoopUtil.replenishData(clusterFS, testHDFSDir, dataDates, withData);
+        dataDates.add(HadoopUtil.SOMETHING_RANDOM);
+        if (withData) {
+            HadoopUtil.flattenAndPutDataInFolder(clusterFS, testHDFSDir, dataDates);
+        } else {
+            HadoopUtil.createFolders(clusterFS, testHDFSDir, dataDates);
+        }
     }
 
     private void commonDataRetentionWorkflow(String feed, FeedType feedType,

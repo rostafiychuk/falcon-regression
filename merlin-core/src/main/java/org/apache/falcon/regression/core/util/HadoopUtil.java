@@ -368,22 +368,4 @@ public final class HadoopUtil {
         copyDataToFolders(fs, folderPrefix, folderPaths,
             OSUtil.NORMAL_INPUT + "_SUCCESS", OSUtil.NORMAL_INPUT + "log_01.txt");
     }
-
-    public static void replenishData(FileSystem fileSystem, String prefix, List<String> folderList,
-        boolean uploadData) throws IOException {
-        //purge data first
-        deleteDirIfExists(prefix, fileSystem);
-
-        folderList.add(SOMETHING_RANDOM);
-
-        for (final String folder : folderList) {
-            final String pathString = prefix + folder;
-            LOGGER.info(fileSystem.getUri() + pathString);
-            fileSystem.mkdirs(new Path(pathString));
-            if (uploadData) {
-                fileSystem.copyFromLocalFile(new Path(OSUtil.RESOURCES + "log_01.txt"),
-                        new Path(pathString));
-            }
-        }
-    }
 }
