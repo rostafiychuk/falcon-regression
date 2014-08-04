@@ -300,7 +300,7 @@ public final class HadoopUtil {
         flattenAndPutDataInFolder(fs, OSUtil.NORMAL_INPUT, folderPrefix, folderData);
     }
 
-    public static void createLateDataFolders(FileSystem fs, final String folderPrefix,
+    public static void createFolders(FileSystem fs, final String folderPrefix,
                                              List<String> folderList) throws IOException {
         for (final String folder : folderList) {
             fs.mkdirs(new Path(folderPrefix + folder));
@@ -327,7 +327,7 @@ public final class HadoopUtil {
         List<String> folderPaths = TimeUtil.getMinuteDatesOnEitherSide(interval, minuteSkip);
         LOGGER.info("folderData: " + folderPaths.toString());
 
-        createLateDataFolders(fs, folderPrefix, folderPaths);
+        createFolders(fs, folderPrefix, folderPaths);
 
         if (fileToBePut.equals("_SUCCESS")) {
             copyDataToFolders(fs, folderPrefix, folderPaths, OSUtil.NORMAL_INPUT + "_SUCCESS");
@@ -348,7 +348,7 @@ public final class HadoopUtil {
             }
         }
 
-        createLateDataFolders(fs, folderPrefix, folderPaths);
+        createFolders(fs, folderPrefix, folderPaths);
         copyDataToFolders(fs, folderPrefix, folderPaths,
                 OSUtil.NORMAL_INPUT + "log_01.txt");
     }
@@ -364,7 +364,7 @@ public final class HadoopUtil {
             }
         }
 
-        createLateDataFolders(fs, folderPrefix, folderPaths);
+        createFolders(fs, folderPrefix, folderPaths);
         copyDataToFolders(fs, folderPrefix, folderPaths,
             OSUtil.NORMAL_INPUT + "_SUCCESS", OSUtil.NORMAL_INPUT + "log_01.txt");
     }
